@@ -1,8 +1,13 @@
 class User < ApplicationRecord
-  has_many :organisations, through: :shifts, dependent: :destroy
-  has_many :shifts, dependent: :destroy
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
-  validates :name, uniqueness: true, presence: true
-  validates :email, uniqueness: true, presence: true
-  validates :password, presence: true, length: { minimum: 8 }
+  has_many :shifts, dependent: :destroy
+  has_many :organisations, through: :shifts
+
+  # validates
+
+
 end

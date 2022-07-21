@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_21_114520) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_21_145743) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "organisation_users", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "organisation_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["organisation_id"], name: "index_organisation_users_on_organisation_id"
+    t.index ["user_id"], name: "index_organisation_users_on_user_id"
+  end
 
   create_table "organisations", force: :cascade do |t|
     t.string "name"
@@ -25,22 +34,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_21_114520) do
     t.datetime "start"
     t.datetime "finish"
     t.integer "break_length"
-    t.bigint "user_id", null: false
-    t.bigint "organisation_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["organisation_id"], name: "index_shifts_on_organisation_id"
-    t.index ["user_id"], name: "index_shifts_on_user_id"
+    t.bigint "organisation_user_id", null: false
+    t.index ["organisation_user_id"], name: "index_shifts_on_organisation_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "password"
+    t.string "email", default: "", null: false
+    t.string "encrypted_password", default: "", null: false
+    t.string "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
+    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "shifts", "organisations"
-  add_foreign_key "shifts", "users"
+  add_foreign_key "organisation_users", "organisations"
+  add_foreign_key "organisation_users", "users"
+  add_foreign_key "shifts", "organisation_users"
 end

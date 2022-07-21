@@ -1,0 +1,18 @@
+<nav class="navbar">
+    <% if user_signed_in? %>
+      <p>Hello <%=current_user.name %></p>
+      <% else %>
+      <p></p>
+      <% end %>
+      <h1>Adnat</h1>
+    <% if user_signed_in? %>
+      <ul class="navbar__list">
+      <li class="navbar__list-item">
+          <%= link_to " Log out ", destroy_user_session_path, data: {turbo_method: :delete} %>
+      </li>
+      <li class="navbar__list-item">profile</li>
+      </ul>
+    <% else %>
+      <p></p>
+    <% end %>
+</nav>

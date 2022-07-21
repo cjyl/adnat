@@ -1,1 +1,31 @@
 <h1>Organisations</h1>
+
+<h2>My orgs</h2>
+
+<% if @my_orgs.length>0 %>
+  <ul>
+    <% @my_orgs.each do |o| %>
+      <li>
+        <%= o.name %>
+        <%= link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You're not in any orgs</p>
+<% end %>
+
+<h2>Not my orgs</h2>
+
+<% if @not_my_orgs.length>0 %>
+  <ul>
+    <% @not_my_orgs.each do |o| %>
+      <li>
+        <%= o.name %>
+        <%= link_to "Join", join_organisation_user_path(o), data: {turbo_method: :post}  %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>You're not in any orgs</p>
+<% end %>

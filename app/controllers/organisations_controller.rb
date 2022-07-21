@@ -1,6 +1,16 @@
 class OrganisationsController < ApplicationController
+  before_action :check_log_in
+
   def index
-    @organisations = Organisation.all
+    my_org_users = OrganisationUser.where('user_id = ?', current_user.id)
+    organisations = Organisation.all
+    @my_orgs = my_org_users.map do |og|
+      og.organisation
+    end
+    @not_my_orgs = organisations.reject do |o|
+      @my_orgs.include? o
+    end
+    # raise
   end
 
   def show
@@ -23,6 +33,12 @@ class OrganisationsController < ApplicationController
 
   def organisation_params
     params.require(:organisation).permit(:name, :hourly_rate)
+  end
+
+  def check_log_in
+    return if user_signed_in?
+
+    redirect_to new_user_session_url
   end
 
 end

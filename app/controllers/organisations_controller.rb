@@ -1,12 +1,11 @@
 class OrganisationsController < ApplicationController
-  before_action :check_log_in
+  before_action :check_log_in, :set_organisation, only: %i[show update destroy]
 
   def index
     my_org_users = OrganisationUser.where('user_id = ?', current_user.id)
     organisations = Organisation.all
-    @my_orgs = my_org_users.map do |og|
-      og.organisation
-    end
+    @my_orgs = my_org_users.map(&:organisation)
+
     @not_my_orgs = organisations.reject do |o|
       @my_orgs.include? o
     end
@@ -15,7 +14,9 @@ class OrganisationsController < ApplicationController
   end
 
   def show
-    @organisation = Organisation.find(params[:id])
+    @all_org_users = OrganisationUser.where('organisation_id = ?', params[:id])
+
+    @shift = Shift.new
   end
 
   def new
@@ -36,9 +37,8 @@ class OrganisationsController < ApplicationController
   end
 
   def update
-    raise
-
-
+    @organisation.update(organisation_params)
+    redirect_to organisations_path
   end
 
   def destroy
@@ -50,6 +50,10 @@ class OrganisationsController < ApplicationController
 
   def organisation_params
     params.require(:organisation).permit(:name, :hourly_rate)
+  end
+
+  def set_organisation
+    @organisation = Organisation.find(params[:id])
   end
 
   def check_log_in

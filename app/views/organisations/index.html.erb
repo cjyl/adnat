@@ -1,27 +1,42 @@
-<h2>My Organisations</h2>
 
+<h2>My Organisations</h2>
+<div data-controller="organisation">
 <% if @my_orgs.length>0 %>
   <ul>
     <% @my_orgs.each do |o| %>
       <li>
         <%= o.name %>
-        <%# <%= link_to "View Shifts", %>
-        <button id="edit-org">Edit</button>
-        <div data-=<%=o.id%> id="form">
-            <%= simple_form_for o do |f| %>
-              <%= f.input :name %>
-              <%= f.input :hourly_rate %>
-              <%= f.submit "update" %>
-            <% end %>
-        </div>
+        <div class="d-flex">
+          <button data-button="<%=o.id%>" data-action="click->organisation#toggleForm">Edit</button>
+            <div >
+                <%= simple_form_for o, html: { data: { organisation_target: "form", formid: "#{o.id}" }, class: "invisible" } do |f| %>
+                  <%= f.input :name %>
+                  <%= f.input :hourly_rate, placeholder:'£' %>
+                  <%= f.submit "update" %>
+                <% end %>
+            </div>
 
-          <button><%= link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
+          <button><%=link_to "View Shifts", organisation_path(o) %></button>
+
+          <button><%=link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
+        </div>
       </li>
     <% end %>
   </ul>
 <% else %>
   <p>You're not in any organisations</p>
 <% end %>
+
+
+<div id="create-org" class="btn btn-primary">Create an organisation</div>
+<div id="create-form">
+  <%= simple_form_for @organisation, html:{class:"invisible"} do |f| %>
+    <%= f.input :name, placeholder:'Minimum 5 letters'%>
+    <%= f.input :hourly_rate, placeholder:'£' %>
+    <%= f.button :submit %>
+  <% end %>
+</div>
+
 
 <h2>Other Organisations</h2>
 
@@ -37,10 +52,4 @@
 <% else %>
   <p>Working hard! You're in every org!</p>
 <% end %>
-
-<h2>Create an organisation</h2>
-<%= simple_form_for @organisation do |f| %>
-  <%= f.input :name%>
-  <%= f.input :hourly_rate %>
-  <%= f.button :submit %>
-  <% end %>
+</div>

@@ -1,3 +1,40 @@
-<%= link_to "back to organisations", organisations_path%>
+<%= link_to "back to all organisations", organisations_path%>
 <p></p>
 <%= @organisation.name %>
+Hourly Rate: £ <%= @organisation.hourly_rate %>
+
+<h1>Shifts</h1>
+<table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">Employee Name</th>
+      <th scope="col">Shift Date</th>
+      <th scope="col">Start Time</th>
+      <th scope="col">Finish Time</th>
+      <th scope="col">Break Length(minites)</th>
+      <th scope="col">Hours Worked</th>
+      <th scope="col">Shift Pay</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @all_org_users.each do |e| %>
+
+    <tr>
+      <th scope="row"><%=e.user.name%></th>
+
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<%= link_to "Delete",
+    organisation_path(@organisation),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
+  %>

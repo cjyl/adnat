@@ -4,9 +4,9 @@ import "./controllers"
 import "bootstrap"
 
 
-const edit = document.querySelector("#edit-org")
-const updateForm = document.querySelector("#edit_organisation_")
-edit.addEventListener("click", (e) =>{
+const createButton = document.querySelector("#create-org")
+const createForm = document.querySelector("#create-form")
+createButton.addEventListener("click", (e) =>{
   console.log("hello")
-  updateForm.classList.toggle('invisible');
+  createForm.classList.toggle('invisible');
 })

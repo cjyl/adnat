@@ -13,6 +13,4 @@ class OrganisationUsersController < ApplicationController
     my_org_user[0].destroy
     redirect_to organisations_path, status: :see_other
   end
-
-
 end

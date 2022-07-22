@@ -11,17 +11,34 @@ class OrganisationsController < ApplicationController
       @my_orgs.include? o
     end
     # raise
+    @organisation = Organisation.new
   end
 
   def show
+    @organisation = Organisation.find(params[:id])
+  end
 
+  def new
+    @organisation = Organisation.new
   end
 
   def create
-    @organisation = Organisation.new(organisation_params)
-    @organisation.save
-    # No need for app/views/organisations/create.html.erb
-    redirect_to organisation_path(@organisation)
+    organisation = Organisation.new(organisation_params)
+    if organisation.save
+      OrganisationUser.create(
+        user_id: current_user.id,
+        organisation_id: organisation.id
+      )
+      redirect_to join_organisation_user_path(organisation)
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    raise
+
+
   end
 
   def destroy

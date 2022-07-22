@@ -3,4 +3,10 @@ import "@hotwired/turbo-rails"
 import "./controllers"
 import "bootstrap"
 
-console.log("hello there")
+
+const edit = document.querySelector("#edit-org")
+const updateForm = document.querySelector(#edit_organisation_)
+edit.addEventListener("click", (e) =>{
+  console.log("hello")
+  updateForm.classList.toggle('invisible');
+})

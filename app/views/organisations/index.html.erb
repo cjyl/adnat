@@ -1,21 +1,29 @@
-<h1>Organisations</h1>
-
-<h2>My orgs</h2>
+<h2>My Organisations</h2>
 
 <% if @my_orgs.length>0 %>
   <ul>
     <% @my_orgs.each do |o| %>
       <li>
         <%= o.name %>
-        <%= link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %>
+        <%# <%= link_to "View Shifts", %>
+        <button id="edit-org">Edit</button>
+        <div data-form=<%=o.name%> id="form">
+            <%= simple_form_for o do |f| %>
+              <%= f.input :name %>
+              <%= f.input :hourly_rate %>
+              <%= f.submit "update" %>
+            <% end %>
+        </div>
+
+          <button><%= link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
       </li>
     <% end %>
   </ul>
 <% else %>
-  <p>You're not in any orgs</p>
+  <p>You're not in any organisations</p>
 <% end %>
 
-<h2>Not my orgs</h2>
+<h2>Other Organisations</h2>
 
 <% if @not_my_orgs.length>0 %>
   <ul>
@@ -27,5 +35,12 @@
     <% end %>
   </ul>
 <% else %>
-  <p>You're not in any orgs</p>
+  <p>Working hard! You're in every org!</p>
 <% end %>
+
+<h2>Create an organisation</h2>
+<%= simple_form_for @organisation do |f| %>
+  <%= f.input :name%>
+  <%= f.input :hourly_rate %>
+  <%= f.button :submit %>
+  <% end %>

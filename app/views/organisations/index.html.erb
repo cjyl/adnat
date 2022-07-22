@@ -7,7 +7,7 @@
         <%= o.name %>
         <%# <%= link_to "View Shifts", %>
         <button id="edit-org">Edit</button>
-        <div data-form=<%=o.name%> id="form">
+        <div data-=<%=o.id%> id="form">
             <%= simple_form_for o do |f| %>
               <%= f.input :name %>
               <%= f.input :hourly_rate %>

@@ -2,21 +2,28 @@ class OrganisationsController < ApplicationController
   before_action :check_log_in, :set_organisation, only: %i[show update destroy]
 
   def index
-    my_org_users = OrganisationUser.where('user_id = ?', current_user.id)
     organisations = Organisation.all
+
+    my_org_users = OrganisationUser.where('user_id = ?', current_user.id)
     @my_orgs = my_org_users.map(&:organisation)
 
     @not_my_orgs = organisations.reject do |o|
       @my_orgs.include? o
     end
     # raise
+
     @organisation = Organisation.new
   end
 
   def show
     @all_org_users = OrganisationUser.where('organisation_id = ?', params[:id])
-
+    @shifts = @all_org_users.map do |u|
+      u.shifts
+    end.flatten
     @shift = Shift.new
+
+    @me = @all_org_users.find { |organisation_user| organisation_user.user == current_user }
+
   end
 
   def new

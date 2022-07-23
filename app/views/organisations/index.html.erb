@@ -1,21 +1,12 @@
 
 <h2>My Organisations</h2>
-<div data-controller="organisation">
+
 <% if @my_orgs.length>0 %>
   <ul>
     <% @my_orgs.each do |o| %>
       <li>
         <%= o.name %>
-        <div class="d-flex">
-          <button data-button="<%=o.id%>" data-action="click->organisation#toggleForm">Edit</button>
-            <div >
-                <%= simple_form_for o, html: { data: { organisation_target: "form", formid: "#{o.id}" }, class: "invisible" } do |f| %>
-                  <%= f.input :name %>
-                  <%= f.input :hourly_rate, placeholder:'£' %>
-                  <%= f.submit "update" %>
-                <% end %>
-            </div>
-
+        <div >
           <button><%=link_to "View Shifts", organisation_path(o) %></button>
 
           <button><%=link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
@@ -27,10 +18,11 @@
   <p>You're not in any organisations</p>
 <% end %>
 
+<div data-controller="organisation">
 
-<div id="create-org" class="btn btn-primary">Create an organisation</div>
-<div id="create-form">
-  <%= simple_form_for @organisation, html:{class:"invisible"} do |f| %>
+<div data-action="click->organisation#toggleForm" class="btn btn-primary">Create an organisation</div>
+<div >
+  <%= simple_form_for @organisation, html:{data: {organisation_target: "form"}, class: "invisible" } do |f| %>
     <%= f.input :name, placeholder:'Minimum 5 letters'%>
     <%= f.input :hourly_rate, placeholder:'£' %>
     <%= f.button :submit %>

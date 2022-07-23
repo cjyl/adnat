@@ -9,6 +9,21 @@
   <h2>
     Hourly Rate: £ <%= @organisation.hourly_rate %>
   </h2>
+    <div class="d-flex" >
+      <div class="me-2" data-controller="organisation">
+        <button data-action="click->organisation#toggleForm" type="button" class="btn btn-light">Edit</button>
+          <%= simple_form_for @organisation, html: { data: { organisation_target: "form" }, class: "invisible" } do |f| %>
+            <%= f.input :name %>
+            <%= f.input :hourly_rate, placeholder:'£' %>
+            <%= f.submit "update" %>
+          <% end %>
+      </div>
+    <button type="button" class="btn btn-secondary text-decoration-none"><%= link_to "Delete",
+    organisation_path(@organisation),
+    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%></button>
+
+
+  </div>
 </div>
 
 <div class="m-3">
@@ -40,25 +55,19 @@
       </tr>
       <% end %>
 
-
 </div>
 
 
   </tbody>
 </table>
-  <div class="shift-form">
-        <%= simple_form_for [@organisation, @me, @shift] do |f| %>
-        <div class="form-inputs">
-          <%= f.input :shift_date, as: :date %>
-          <%= f.input :start_time, as: :select, collection:(1..24).to_a %>
-          <%= f.input :finish_time, as: :select, collection:(1..24).to_a%>
-          <%= f.input :break_length, input_html: {min:"0", step:"10"} %>
-          <%= f.submit "Create shift" %>
-        </div>
-        <% end %>
+<div class="shift-form">
+      <%= simple_form_for [@organisation, @me, @shift] do |f| %>
+      <div class="form-inputs">
+        <%= f.input :shift_date, as: :date %>
+        <%= f.input :start_time, as: :select, collection:(1..24).to_a %>
+        <%= f.input :finish_time, as: :select, collection:(1..24).to_a%>
+        <%= f.input :break_length, input_html: {min:"0", step:"10"} %>
+        <%= f.submit "Create shift" %>
+      </div>
+      <% end %>
 </div>
-
-<%= link_to "Delete",
-    organisation_path(@organisation),
-    data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}
-  %>

@@ -21,7 +21,6 @@ class OrganisationsController < ApplicationController
       u.shifts
     end.flatten
     @shift = Shift.new
-
     @me = @all_org_users.find { |organisation_user| organisation_user.user == current_user }
 
   end
@@ -45,7 +44,7 @@ class OrganisationsController < ApplicationController
 
   def update
     @organisation.update(organisation_params)
-    redirect_to organisations_path
+    redirect_to organisation_path(organisation_params)
   end
 
   def destroy

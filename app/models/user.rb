@@ -4,8 +4,11 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :shifts, dependent: :destroy
-  has_many :organisations, through: :shifts
+  has_many :organisations, through: :organisation_users
+
+  validates :name, uniqueness: true, presence: true
+  validates :email, format: { with: /\A.*@.*\.com\z/ }, uniqueness: true, presence: true
+  validates :password, length: { minimum: 6 }, presence: true
 
   # validates
 

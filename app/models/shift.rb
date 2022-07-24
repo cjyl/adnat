@@ -5,11 +5,19 @@ class Shift < ApplicationRecord
   end
 
   def start_time
-    start.to_s.split[1].split(':')[0].to_i if start
+    return unless start
+
+    h = start.to_s.split[1].split(':')[0]
+    m = start.to_s.split[1].split(':')[1]
+    "#{h}:#{m}"
   end
 
   def finish_time
-    finish.to_s.split[1].split(':')[0].to_i if finish
+    return unless finish
+
+    h = finish.to_s.split[1].split(':')[0]
+    m = finish.to_s.split[1].split(':')[1]
+    "#{h}:#{m}"
   end
 
   def hours_worked

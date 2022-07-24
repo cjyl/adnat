@@ -47,8 +47,8 @@
         <th scope="row"><%=shift.organisation_user.user.name%></th>
 
         <td><%=shift.shift_date %></td>
-        <td><%= shift.start_time %><%= shift.start_time < 12 ? " am" : " pm"  %></td>
-        <td><%= shift.finish_time %><%= shift.finish_time < 12 ? " am" : " pm"  %></td>
+        <td><%= shift.start_time %></td>
+        <td><%= shift.finish_time %></td>
         <td><%= shift.break_length %></td>
         <td><%= shift.hours_worked %></td>
         <td>£ <%= shift.organisation_user.organisation.hourly_rate * shift.hours_worked %></td>
@@ -63,11 +63,11 @@
 <div class="shift-form">
       <%= simple_form_for [@organisation, @me, @shift] do |f| %>
       <div class="form-inputs">
-        <%= f.input :shift_date, as: :date %>
-        <%= f.input :start_time, as: :select, collection:(1..24).to_a %>
-        <%= f.input :finish_time, as: :select, collection:(1..24).to_a%>
+        <%= f.input :shift_date, as: :date, require: true %>
+        <%= f.input :start_time, as: :time, ignore_date: true, require: true %>
+        <%= f.input :finish_time, as: :time, ignore_date: true, require: true %>
         <%= f.input :break_length, input_html: {min:"0", step:"10"} %>
-        <%= f.submit "Create shift" %>
+        <%= f.submit "Create shift", class: "btn btn-secondary mt-3" %>
       </div>
       <% end %>
 </div>

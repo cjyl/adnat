@@ -1,47 +1,51 @@
 
-<h2>My Organisations</h2>
+<div class="p-3">
+  <h2>My Organisations</h2>
 
-<% if @my_orgs.length>0 %>
-  <ul>
-    <% @my_orgs.each do |o| %>
-      <li>
-        <%= o.name %>
-        <div >
-          <button><%=link_to "View Shifts", organisation_path(o) %></button>
+  <% if @my_orgs.length>0 %>
+    <ul>
+      <% @my_orgs.each do |o| %>
+        <li>
+          <%= o.name %>
+          <div >
+            <button><%=link_to "View Shifts", organisation_path(o) %></button>
 
-          <button><%=link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
-        </div>
-      </li>
-    <% end %>
-  </ul>
-<% else %>
-  <p>You're not in any organisations</p>
-<% end %>
-
-<div data-controller="organisation">
-
-<div data-action="click->organisation#toggleForm" class="btn btn-primary">Create an organisation</div>
-<div >
-  <%= simple_form_for @organisation, html:{data: {organisation_target: "form"}, class: "invisible" } do |f| %>
-    <%= f.input :name, placeholder:'Minimum 5 letters'%>
-    <%= f.input :hourly_rate, placeholder:'£' %>
-    <%= f.button :submit %>
+            <button><%=link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>You're not in any organisations</p>
   <% end %>
 </div>
 
+<div class="p-3"data-controller="organisation">
 
-<h2>Other Organisations</h2>
-
-<% if @not_my_orgs.length>0 %>
-  <ul>
-    <% @not_my_orgs.each do |o| %>
-      <li>
-        <%= o.name %>
-        <%= link_to "Join", join_organisation_user_path(o), data: {turbo_method: :post}  %>
-      </li>
+  <div data-action="click->organisation#toggleForm" class="btn btn-primary">Create an organisation</div>
+  <div >
+    <%= simple_form_for @organisation, html:{data: {organisation_target: "form"}, class: "invisible" } do |f| %>
+      <%= f.input :name, placeholder:'Minimum 5 letters'%>
+      <%= f.input :hourly_rate, placeholder:'£' %>
+      <%= f.button :submit %>
     <% end %>
-  </ul>
-<% else %>
-  <p>Working hard! You're in every org!</p>
-<% end %>
+  </div>
+</div>
+
+<div class="p-3">
+  <h2>Other Organisations</h2>
+
+  <% if @not_my_orgs.length>0 %>
+    <ul>
+      <% @not_my_orgs.each do |o| %>
+        <li>
+          <%= o.name %>
+          <%= link_to "Join", join_organisation_user_path(o), data: {turbo_method: :post}  %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>Working hard! You're in every org!</p>
+  <% end %>
+
 </div>

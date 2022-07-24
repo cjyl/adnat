@@ -1,3 +1,4 @@
+<% if user_signed_in? %>
 <div class="m-3">
   <%= link_to "back to all organisations", organisations_path%>
 </div>
@@ -11,18 +12,16 @@
   </h2>
     <div class="d-flex" >
       <div class="me-2" data-controller="organisation">
-        <button data-action="click->organisation#toggleForm" type="button" class="btn btn-light">Edit</button>
+        <button data-action="click->organisation#toggleForm" type="button" class="btn btn-dark">Edit</button>
           <%= simple_form_for @organisation, html: { data: { organisation_target: "form" }, class: "invisible" } do |f| %>
             <%= f.input :name %>
             <%= f.input :hourly_rate, placeholder:'£' %>
             <%= f.submit "update" %>
           <% end %>
       </div>
-    <button type="button" class="btn btn-secondary text-decoration-none"><%= link_to "Delete",
+    <button type="button" class="btn btn-dark text-decoration-none"><%= link_to "Delete",
     organisation_path(@organisation),
     data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}%></button>
-
-
   </div>
 </div>
 
@@ -54,12 +53,12 @@
         <td>£ <%= shift.organisation_user.organisation.hourly_rate * shift.hours_worked %></td>
       </tr>
       <% end %>
-
+    </tbody>
+  </table>
 </div>
 
 
-  </tbody>
-</table>
+
 <div class="shift-form">
       <%= simple_form_for [@organisation, @me, @shift] do |f| %>
       <div class="form-inputs">
@@ -71,3 +70,4 @@
       </div>
       <% end %>
 </div>
+<% end %>

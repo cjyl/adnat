@@ -1,1 +1,39 @@
 // Specific CSS for your home-page
+
+.left-cover {
+  padding-top: 200px;
+  padding-left: 2rem;
+  color: whitesmoke;
+  background-color: rgb(195, 199, 202);
+  width:100%;
+  height: 600px;
+  margin:auto;
+  text-align: left;
+}
+.right-cover {
+  background-size: cover;
+  background-position: center;
+  width:100%;
+  height: 600px;
+  margin:auto;
+}
+
+.btn a{
+  text-decoration: none;
+  :hover {
+    text-decoration: none;
+  }
+}
+
+.btn-dark a {
+  color: whitesmoke;
+  :hover {
+    color: black;
+  }
+}
+.btn-outline-dark a {
+  color: black;
+  :hover {
+    color: whitesmoke;
+  }
+}

@@ -1,4 +1,6 @@
 class ShiftsController < ApplicationController
+  before_action :find_organisation, only: %i[show update destroy]
+
   def new
     @shift = Shift.new
 
@@ -14,7 +16,7 @@ class ShiftsController < ApplicationController
     finish_m = params["shift"]["finish_time(5i)"].to_i
     break_length = params["shift"]["break_length"].to_i
     organisation_user_id = params["organisation_user_id"].to_i
-    organisation = Organisation.find(params["organisation_id"].to_i)
+    # organisation = Organisation.find(params["organisation_id"].to_i)
 
     start = DateTime.new(year, month, day, start_h, start_m, 0)
     finish = DateTime.new(year, month, day, finish_h, finish_m, 0)
@@ -27,16 +29,21 @@ class ShiftsController < ApplicationController
     )
 
     shift.save unless start >= finish || start < Time.now
-    redirect_to organisation_path(organisation), status: :unprocessable_entity
+    redirect_to organisation_path(@organisation), status: :unprocessable_entity
   end
 
-  def show
-    raise
+  def update
+    shift.update(shift_params)
+    redirect_to organisation_path(@organisation)
   end
 
   private
 
   def shift_params
     params.require(:shift).permit(:start, :finish, :break_length)
+  end
+
+  def find_organisation
+    @organisation = Organisation.find(params[:id])
   end
 end

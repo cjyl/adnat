@@ -1,5 +1,6 @@
 class Shift < ApplicationRecord
   belongs_to :organisation_user
+
   def shift_date
     start.to_s.split[0] if start
   end

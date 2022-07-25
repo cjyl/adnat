@@ -39,10 +39,12 @@
     <ul>
       <% @not_my_orgs.each do |o| %>
         <li>
+        <div class="mt-1">
           <%= o.name %>
-         <button class="btn btn-dark">
-          <%= link_to "Join", join_organisation_user_path(o), data: {turbo_method: :post}  %>
-         </button>
+            <button class="btn btn-dark">
+              <%= link_to "Join", join_organisation_user_path(o), data: {turbo_method: :post}  %>
+            </button>
+          </div>
         </li>
       <% end %>
     </ul>

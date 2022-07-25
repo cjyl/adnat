@@ -4,13 +4,12 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  has_many :organisations, through: :organisation_users
+  has_many :organisation_users, dependent: :destroy
 
   # validates :name, uniqueness: true, presence: true
   # validates :email, format: { with: /\A.*@.*\.com\z/ }, uniqueness: true, presence: true
   # validates :password, length: { minimum: 6 }, presence: true
 
   # validates
-
 
 end

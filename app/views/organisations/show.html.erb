@@ -35,6 +35,7 @@
         <th scope="col">Start Time</th>
         <th scope="col">Finish Time</th>
         <th scope="col">Break Length(minites)</th>
+        <th scope="col">Overnight</th>
         <th scope="col">Hours Worked</th>
         <th scope="col">Shift Pay</th>
       </tr>
@@ -47,10 +48,11 @@
 
         <td><%=shift.shift_date %></td>
         <td><%= shift.start_time %></td>
-        <td><%= shift.finish_time %></td>
+        <td><%= shift.finish_time%></td>
         <td><%= shift.break_length %></td>
+        <td><%= shift.overnight ? "☑️" : " "%></td>
         <td><%= shift.hours_worked %></td>
-        <td>£ <%= shift.organisation_user.organisation.hourly_rate * shift.hours_worked %></td>
+        <td>£ <%= shift.pay %></td>
       </tr>
       <% end %>
     </tbody>

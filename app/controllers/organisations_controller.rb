@@ -12,21 +12,16 @@ class OrganisationsController < ApplicationController
         @my_orgs.include? o
       end
       # raise
-
       @organisation = Organisation.new
-
     else
       redirect_to home_path
     end
-
   end
 
   def show
     if user_signed_in?
       @all_org_users = OrganisationUser.where('organisation_id = ?', params[:id])
-      @shifts = @all_org_users.map do |u|
-        u.shifts
-      end.flatten
+      @shifts = @all_org_users.map(&:shifts).flatten
       @shift = Shift.new
       @me = @all_org_users.find { |organisation_user| organisation_user.user == current_user }
     else

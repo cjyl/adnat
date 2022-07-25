@@ -197,6 +197,8 @@ GEM
     strscan (3.0.3)
     thor (1.2.1)
     tilt (2.0.10)
+    time_difference (0.5.0)
+      activesupport
     timeout (0.3.0)
     turbo-rails (1.1.1)
       actionpack (>= 6.0.0)
@@ -234,6 +236,7 @@ DEPENDENCIES
   simple_form!
   sprockets-rails
   stimulus-rails
+  time_difference
   turbo-rails
   tzinfo-data
   web-console

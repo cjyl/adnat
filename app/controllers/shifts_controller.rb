@@ -19,8 +19,9 @@ class ShiftsController < ApplicationController
 
     start = DateTime.new(year, month, day, start_h, start_m, 0)
     finish = DateTime.new(year, month, day, finish_h, finish_m, 0)
+
     if finish_h < start_h
-      finish = finish.change(day: finish.day + 1)
+      finish = finish.next_day(1)
     end
 
     shift = Shift.new(

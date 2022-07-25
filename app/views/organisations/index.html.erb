@@ -1,5 +1,5 @@
 
-<div class="p-3">
+<div class="p-3 mt-2">
   <h2>My Organisations</h2>
 
   <% if @my_orgs.length>0 %>
@@ -8,9 +8,9 @@
         <li>
           <%= o.name %>
           <div >
-            <button><%=link_to "View Shifts", organisation_path(o) %></button>
+            <button class="btn btn-secondary"><%=link_to "View ", organisation_path(o) %></button>
 
-            <button><%=link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
+            <button class="btn btn-dark"><%=link_to "Leave", leave_organisation_user_path(o), data: {turbo_method: :delete} %></button>
           </div>
         </li>
       <% end %>
@@ -40,7 +40,9 @@
       <% @not_my_orgs.each do |o| %>
         <li>
           <%= o.name %>
+         <button class="btn btn-dark">
           <%= link_to "Join", join_organisation_user_path(o), data: {turbo_method: :post}  %>
+         </button>
         </li>
       <% end %>
     </ul>

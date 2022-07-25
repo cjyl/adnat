@@ -31,7 +31,7 @@ class Shift < ApplicationRecord
   end
 
   def normal_pay
-    organisation_user.organisation.hourly_rate * hours_worked
+    (organisation_user.organisation.hourly_rate * hours_worked).round(2)
   end
 
   def penalty_pay

@@ -1,7 +1,8 @@
 .navbar {
   display: flex;
   justify-content: space-between;
-  padding: 1rem 2rem;
+  padding: 0 1rem;
+  border-bottom: 2px solid rgb(76, 136, 214);;
 
   a {
     text-decoration: none;

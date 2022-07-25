@@ -1,24 +1,53 @@
-# README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# Adnat Challenge
 
-Things you may want to cover:
+In this challenge created a highly simplified version of the Tanda web app from scratch using Ruby on Rails.
 
-* Ruby version
 
-* System dependencies
 
-* Configuration
+## As a user, I can: 
 
-* Database creation
+- Access landing page, will need to log in or sign up to view organisations.
+- Edit user account details(opt. 1).
+- Join multipul oganisations (opt. 8), or create an organisation (opt.11 -stimulus).
+- Once joined, can view organisation details and shifts, or leave.
+- Edit organisation details or Delete organisation. 
+- Create shifts for themselves in an organisation;
+- See if shift is overnight (opt.5) or cover Sunday for penalty pay (opt.6).
 
-* Database initialization
+## Run Locally
 
-* How to run the test suite
+Clone the project
 
-* Services (job queues, cache servers, search engines, etc.)
+```bash
+git clone git@github.com:cjyl/adnat.git
+cd adnat
+```
 
-* Deployment instructions
+Install gems
 
-* ...
+```bash
+bundle:install
+```
+
+Install dependencies
+```bash
+yarn:install
+```
+
+Set up data base
+```bash
+rails db:create db:migrate db:seed
+```
+
+Start the server
+
+```bash
+rails s
+```
+In new tab
+```bash
+yarn build --watch
+```
+... and land on http://localhost:3000 
+

@@ -37,7 +37,7 @@ class Shift < ApplicationRecord
   def penalty_pay
     rate = organisation_user.organisation.hourly_rate
     if start.sunday? && finish.sunday?
-      normal_pay * 2
+      normal_pay * 2 + (break_length / 60).round(2) * rate
     elsif start.sunday? && finish.monday?
       sunday_pay = TimeDifference.between(start, start.end_of_day).in_hours * rate
       normal_pay + sunday_pay
